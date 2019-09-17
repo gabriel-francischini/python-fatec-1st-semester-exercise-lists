@@ -12,4 +12,4 @@ for numero in range(0, limite + 1):
     if quadrado <= limite:
         menor_numero_satisfatorio = numero
 
-print(menor_numero_satisfatorio)
+print(menor_numero_satisfatorio * menor_numero_satisfatorio)
