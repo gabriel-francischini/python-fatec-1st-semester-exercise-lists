@@ -9,6 +9,9 @@
     for rendering by e.g. GraphViz or yEd.
 """
 
+# THIS FILE WAS DOWNLOADED FROM: https://yousource.it.jyu.fi/jjrandom2/miniprojects/trees/master/refactoring
+# SEE: https://stackoverflow.com/questions/13963321/build-a-call-graph-in-python-including-modules-and-functions
+
 import sys
 import ast
 import symtable
