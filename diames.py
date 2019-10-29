@@ -1,47 +1,45 @@
-# numero_de_dias_por_mes = {
-#     'Dezembro': 31,
-#     'Janeiro': 31,
-#     'Fevereiro': 28,
-#     'Março': 31,
-#     'Abril': 30,
-#     'Maio': 31,
-#     'Junho': 30,
-#     'Julho': 31,
-#     'Agosto': 31,
-#     'Setembro': 30,
-#     'Outubro': 31,
-#     'Novembro': 30,
-# }
-
-mes_de_cada_numero = {
-    '0': "Dezembro",
-    '1': "Janeiro",
-    '2': "Fevereiro",
-    '3': "Março",
-    '4': "Abril",
-    '5': "Maio",
-    '6': "Junho",
-    '7': "Julho",
-    '8': "Agosto",
-    '9': "Setembro",
-    '10': "Outubro",
-    '11': "Novembro",
-}
+import locale
+locale.setlocale(locale.LC_ALL, 'pt_BR')
+import datetime
+import calendar
 
 
+ano_vigente = now = datetime.datetime.now().year
 
 class DiaMes():
     def __init__(self, dia, mes):
         self._dia = dia
         self._mes = mes
-        self.corrigir_dia_e_mes()
+        self._date = self._corrigir_dia_e_mes()
 
-    def corrigir_dia_e_mes(self):
+    def _corrigir_dia_e_mes(self):
+        if self._mes == 0:
+            mes = 12
+        else:
+            mes = self._mes
 
+        if self._dia == 0:
+            dia = 31
+        else:
+            dia = self._dia
+
+        # see: https://stackoverflow.com/questions/42950
+        first_mday, last_mday = calendar.monthrange(ano_vigente, mes)
+
+        # Dia do próximo mês
+        if dia > last_mday:
+            dia -= last_mday
+            mes += 1
+
+        date = datetime.date(ano_vigente, mes, dia)
+
+        self._mes = date.month
+        self._dia = date.day
+        return date
 
     def __repr__(self):
         # Acts like a tuple
         return str((self._dia, self._mes))
 
     def __str__(self):
-        return str(self._dia) + " de " + mes_de_cada_numero[self._mes]
+        return self._date.strftime("%d de %B")

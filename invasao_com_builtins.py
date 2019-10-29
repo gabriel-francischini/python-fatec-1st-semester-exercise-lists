@@ -1,7 +1,9 @@
+import functools
 import itertools
 import operator
 
 import utilidades
+import diames
 
 
 def partes_decodificadas(codigo):
@@ -31,7 +33,8 @@ def metodo_A(lista_N):
     pares = list(zip(ordenada, sequencia))
     print("Multiplicação dos N números ordenados + serie: " + str(pares))
 
-    produtos = list(map(operator.mul, pares))
+    produtos = list(map(lambda x: functools.reduce(operator.mul, x, 1),
+                        pares))
     print("                                             = " + str(produtos))
 
     numero_S = sum(produtos)
@@ -101,8 +104,8 @@ def resolucao(entrada):
         print("Usaremos o método B.")
         dia, mes = metodo_B(terceira_parte)
 
-    data = dia_e_mes_para_string(*corrigir_dia_e_mes(dia, mes))
-    print("Resp.: " + data)
+    data = diames.DiaMes(dia, mes)
+    print("Resp.: " + str(data))
 
     return data
 
